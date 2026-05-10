@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashcard App - Cram Mode</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div id="appSection" class="app-section">
+      <h1>Flashcard Cram Mode</h1>
+      <div id="loadError" class="error-msg"></div>
+
+      <!-- Progress Visualizer -->
+      <div class="visualizer">
+        <h2>Progress</h2>
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+
+      <!-- Flashcard Display -->
+      <div class="flashcard-container">
+        <div id="flashcard" class="flashcard">
+          <div id="cardContent" class="card-content">Loading...</div>
+        </div>
+      </div>
+
+      <!-- Card Info -->
+      <div class="card-info">
+        <p id="cardCounter">Card 1 of 0</p>
+        <p id="cardLevel">Level: 1</p>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <div class="keyboard-controls">
+          <p class="hint">Keyboard: ↑/↓ Flip | ← Wrong | → Correct</p>
+          <button id="flipBtn" class="control-btn">Flip Card</button>
+          <button id="wrongBtn" class="control-btn wrong-btn" disabled>❌ Wrong (← arrow)</button>
+          <button id="correctBtn" class="control-btn correct-btn" disabled>✓ Correct (→ arrow)</button>
+        </div>
+        <button id="shuffleBtn" class="secondary-btn">🔀 Shuffle All Rounds</button>
+      </div>
+
+      <!-- Navigation -->
+      <div class="navigation">
+        <button id="prevCardBtn" class="nav-btn">← Previous</button>
+        <button id="nextCardBtn" class="nav-btn">Next →</button>
+        <button id="startOverBtn" class="nav-btn secondary">Start Over</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

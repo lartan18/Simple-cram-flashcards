@@ -1,0 +1,33 @@
+What is the main purpose of using a CAPTCHA?\CAPTCHA stands for Completely Automated Public Turing test to tell Computers and Humans Apart; its purpose is to ensure a user is a real human and not an automated bot.$
+What is Information Gathering in web security?\It is the first step where an attacker collects technical details about a website to find its specific weaknesses.$
+What is SQLi?\SQLi stands for SQL injection. It is when an attacker puts secret database commands into a web box to trick the computer into showing or changing data it should not.$
+How to exploit SQLi?\By typing something like ' OR 1=1; -- into a login box so the database thinks the password is correct without actually checking it.$
+How to mitigate SQLi?\Use prepared statements and bind variables so the computer treats the input as plain text instead of a command.$
+What is Blind SQLi?\Blind SQLi is a type of SQL injection where the computer does not show data directly, but the attacker learns it by asking True or False questions or making the server pause.$
+What is XPath injection?\It is an attack where someone puts malicious code into a search for XML data to bypass login screens or steal information.$
+How to mitigate XPath injection?\Use pre-defined queries or parameterized input so the system knows the user input is just text and not a command.$
+What is LDAP Injection?\LDAP stands for Lightweight Directory Access Protocol; this injection happens when an attacker puts special characters into a search for user info to bypass logins.$
+What is XML Injection?\XML stands for eXtensible Markup Language; this attack involves injecting malicious tags into a data stream to change how an application works or to steal data.$
+What is SSI Injection?\SSI stands for Server-Side Includes; this attack involves putting small pieces of server code into a static web page to make the server run unintended commands.$
+What is IMAP or SMTP Injection?\IMAP and SMTP are email protocols; this attack involves injecting mail server commands into a web form to send fake emails or read other people's mail.$
+What is Code Injection?\It is when an attacker is able to type in real programming code that the web server then runs as if it were its own.$
+What is XSS?\XSS stands for Cross-Site Scripting. It is when an attacker puts a sneaky computer script into a website so it runs in the browsers of other people who visit that page.$
+How to exploit XSS?\By sending a link to someone that has a script hidden in the URL which, when clicked, steals their secret login cookies.$
+How to mitigate XSS?\Sanitize and escape all input data so the browser treats code symbols as plain text instead of instructions.$
+What is the difference between Reflected and Stored XSS?\Reflected XSS is a one-time attack hidden in a link, while Stored XSS stays on the website database and hits every person who visits that page.$
+What is DOM-based XSS?\DOM stands for Document Object Model; this is an attack where the malicious script runs entirely in the user's browser without the server ever knowing.$
+What is CSRF?\CSRF stands for Cross-Site Request Forgery. It is an attack that tricks a user's browser into performing an action on a site where they are already logged in without them knowing.$
+How to mitigate CSRF?\Use secret action tokens called CSRF tokens that prove the request really came from your own website and not a trick link.$
+What is SSRF?\SSRF stands for Server-Side Request Forgery. It is when an attacker tricks a web server into making requests to its own secret internal files or private admin panels.$
+How to exploit SSRF?\By giving the server a URL like file:///etc/passwd to see if the server will fetch and show its own private system files.$
+What is session fixation?\It is when an attacker gives a user a specific login code and then waits for them to log in so the attacker can use that same code to enter their account.$
+How to mitigate session fixation?\Make the server give the user a brand-new login code as soon as they successfully sign in.$
+What is XXE?\XXE stands for XML External Entities. It is an attack where a special XML file is sent to a server that tricks it into reading its own private files like password lists.$
+What is a Billion Laughs attack?\It is a type of XML attack where a tiny file is designed to expand into a massive amount of data to crash the computer by using all its memory.$
+What is Clickjacking?\It is putting an invisible layer over a real button so you think you are clicking something safe, but you are actually clicking a hidden bad button.$
+How to mitigate Clickjacking?\Use browser instructions like X-Frame-Options to tell browsers not to let your website be put inside a frame on another site.$
+What is insecure deserialization?\It is when a computer takes a package of data from a stranger and turns it back into a live program part without checking if it has a hidden bomb inside.$
+What is IDOR?\IDOR stands for Insecure Direct Object Reference. It happens when an app uses a simple number in the URL to find a file and an attacker just changes that number to see other people's private files.$
+What is the difference between LFI and RFI?\LFI stands for Local File Inclusion (tricking the server into showing its own files), while RFI stands for Remote File Inclusion (running code from a different website).$
+What is Command Injection?\It is when an attacker can type in Operating System commands into a web box and the server runs them directly.$
+What is a major limitation of automated vulnerability scanners?\They cannot find every bug and often report false positives or miss complex logic errors that only a human would notic.
