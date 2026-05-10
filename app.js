@@ -5,14 +5,7 @@ const TERM_SEPARATOR = '\\';
 const CARD_SEPARATOR = '$';
 
 // State
-const state = {
-  cards: [],
-  currentCardIndex: 0,
-  isRevealed: false,
-  isShuffled: false,
-  hasRevealedCurrent: false,
-  cardStates: {}, // { cardId: { level: 1, shuffleOrder: 3 } }
-};
+let state = FlashcardEngine.createState([]);
 
 // DOM Elements
 const loadError = document.getElementById('loadError');
@@ -72,12 +65,14 @@ function loadFlashcards() {
         return;
       }
 
-      const hasCards = parseCards(data.content, termSep, cardSep);
-      if (!hasCards) {
+      const cards = parseCards(data.content, termSep, cardSep);
+      if (cards.length === 0) {
         return;
       }
-      initializeGame();
+      state = FlashcardEngine.createState(cards);
       loadError.textContent = '';
+      updateCardDisplay();
+      updateProgressBar();
     })
     .catch((err) => {
       loadError.textContent = `Error: ${err.message}`;
@@ -87,85 +82,35 @@ function loadFlashcards() {
 function parseCards(content, termSep, cardSep) {
   if (!cardSep) {
     loadError.textContent = 'CARD_SEPARATOR must not be empty.';
-    return false;
+    return [];
   }
 
   if (!termSep) {
     loadError.textContent = 'TERM_SEPARATOR must not be empty.';
-    return false;
+    return [];
   }
 
-  const cardTexts = content.split(cardSep).map((text) => text.trim()).filter((text) => text);
+  const cards = FlashcardEngine.parseCards(content, termSep, cardSep);
 
-  state.cards = cardTexts.map((cardText, index) => {
-    const parts = cardText.split(termSep);
-    if (parts.length < 2) return null;
-
-    const term = parts[0].trim();
-    const definition = parts.slice(1).join(termSep).trim();
-
-    return {
-      id: `card-${index}`,
-      term,
-      definition,
-    };
-  }).filter((card) => card !== null);
-
-  if (state.cards.length === 0) {
+  if (cards.length === 0) {
     loadError.textContent = 'No valid cards found. Check separators.';
-    return false;
+    return [];
   }
 
-  return true;
-}
-
-function initializeGame() {
-  state.cardStates = {};
-  state.cards.forEach((card) => {
-    state.cardStates[card.id] = {
-      level: 1,
-      shuffleOrder: Math.random(),
-    };
-  });
-
-  state.currentCardIndex = 0;
-  state.isRevealed = false;
-  state.hasRevealedCurrent = false;
-  state.isShuffled = false;
-  updateCardDisplay();
-  updateProgressBar();
+  return cards;
 }
 
 // Card Navigation & Display
 function getCardsAtMinLevel() {
-  if (!state.cards.length || Object.keys(state.cardStates).length === 0) {
-    return [];
-  }
-
-  const minLevel = Math.min(...Object.values(state.cardStates).map((s) => s.level));
-  return state.cards
-    .map((card, index) => ({ card, index }))
-    .filter(({ card }) => state.cardStates[card.id].level === minLevel);
+  return FlashcardEngine.getCardsAtMinLevel(state);
 }
 
 function getFilteredCards() {
-  const cardsAtMinLevel = getCardsAtMinLevel();
-
-  if (state.isShuffled) {
-    return cardsAtMinLevel.sort((a, b) => {
-      return state.cardStates[a.card.id].shuffleOrder - state.cardStates[b.card.id].shuffleOrder;
-    });
-  }
-
-  return cardsAtMinLevel.sort((a, b) => a.index - b.index);
+  return FlashcardEngine.getFilteredCards(state);
 }
 
 function getCurrentCard() {
-  const filteredCards = getFilteredCards();
-  if (filteredCards.length === 0) return null;
-
-  const actualIndex = state.cards.indexOf(filteredCards[state.currentCardIndex].card);
-  return state.cards[actualIndex];
+  return FlashcardEngine.getCurrentCard(state);
 }
 
 function updateCardDisplay() {
@@ -201,140 +146,48 @@ function updateCardDisplay() {
 }
 
 function flipCard() {
-  const card = getCurrentCard();
-  if (!card) return;
-
-  state.isRevealed = !state.isRevealed;
-  if (state.isRevealed) {
-    state.hasRevealedCurrent = true;
-  }
+  if (!FlashcardEngine.flipCard(state)) return;
   updateCardDisplay();
 }
 
 function markWrong() {
-  const card = getCurrentCard();
-  if (card) {
-    if (!state.hasRevealedCurrent) return;
-    state.cardStates[card.id].level = 1;
-    state.isRevealed = false;
-    state.hasRevealedCurrent = false;
-    updateProgressBar();
-    advanceAfterAnswer(card.id);
-  }
-}
-
-function markCorrect() {
-  const card = getCurrentCard();
-  if (card) {
-    if (!state.hasRevealedCurrent) return;
-    const currentLevel = state.cardStates[card.id].level;
-    if (currentLevel < 5) {
-      state.cardStates[card.id].level = currentLevel + 1;
-    }
-    state.isRevealed = false;
-    state.hasRevealedCurrent = false;
-    updateProgressBar();
-    advanceAfterAnswer(card.id);
-  }
-}
-
-function removeCurrentCard() {
-  const card = getCurrentCard();
-  if (!card) return;
-
-  const removeIndex = state.cards.indexOf(card);
-  if (removeIndex === -1) return;
-
-  state.cards.splice(removeIndex, 1);
-  delete state.cardStates[card.id];
-
-  const filteredCards = getFilteredCards();
-  if (state.currentCardIndex >= filteredCards.length) {
-    state.currentCardIndex = Math.max(0, filteredCards.length - 1);
-  }
-
-  state.isRevealed = false;
-  state.hasRevealedCurrent = false;
+  if (!FlashcardEngine.markWrong(state)) return;
   updateProgressBar();
   updateCardDisplay();
 }
 
-function advanceAfterAnswer(answeredCardId) {
-  const filteredCards = getFilteredCards();
-  if (filteredCards.length === 0) {
-    state.currentCardIndex = 0;
-    updateCardDisplay();
-    return;
-  }
+function markCorrect() {
+  if (!FlashcardEngine.markCorrect(state)) return;
+  updateProgressBar();
+  updateCardDisplay();
+}
 
-  const indexInFiltered = filteredCards.findIndex(({ card }) => card.id === answeredCardId);
-
-  if (indexInFiltered === -1) {
-    if (state.currentCardIndex >= filteredCards.length) {
-      state.currentCardIndex = 0;
-    }
-  } else if (indexInFiltered >= filteredCards.length - 1) {
-    state.currentCardIndex = 0;
-  } else {
-    state.currentCardIndex = indexInFiltered + 1;
-  }
-
-  state.hasRevealedCurrent = false;
+function removeCurrentCard() {
+  if (!FlashcardEngine.removeCurrentCard(state)) return;
+  updateProgressBar();
   updateCardDisplay();
 }
 
 function nextCard() {
-  const filteredCards = getFilteredCards();
-  if (filteredCards.length > 0 && state.currentCardIndex < filteredCards.length - 1) {
-    state.currentCardIndex += 1;
-    state.isRevealed = false;
-    state.hasRevealedCurrent = false;
-    updateCardDisplay();
-  }
+  if (!FlashcardEngine.nextCard(state)) return;
+  updateCardDisplay();
 }
 
 function prevCard() {
-  if (state.currentCardIndex > 0) {
-    state.currentCardIndex -= 1;
-    state.isRevealed = false;
-    state.hasRevealedCurrent = false;
-    updateCardDisplay();
-  }
+  if (!FlashcardEngine.prevCard(state)) return;
+  updateCardDisplay();
 }
 
 function startOver() {
-  state.cardStates = {};
-  state.cards.forEach((card) => {
-    state.cardStates[card.id] = {
-      level: 1,
-      shuffleOrder: Math.random(),
-    };
-  });
-
-  state.currentCardIndex = 0;
-  state.isRevealed = false;
-  state.hasRevealedCurrent = false;
+  FlashcardEngine.resetState(state);
   updateCardDisplay();
   updateProgressBar();
 }
 
 // Shuffle
 function toggleShuffle() {
-  state.isShuffled = !state.isShuffled;
-
-  if (state.isShuffled) {
-    // Regenerate shuffle order for all cards
-    state.cards.forEach((card) => {
-      state.cardStates[card.id].shuffleOrder = Math.random();
-    });
-    shuffleBtn.textContent = '🔀 Shuffle All Rounds (ON)';
-  } else {
-    shuffleBtn.textContent = '🔀 Shuffle All Rounds';
-  }
-
-  state.currentCardIndex = 0;
-  state.isRevealed = false;
-  state.hasRevealedCurrent = false;
+  FlashcardEngine.toggleShuffle(state);
+  shuffleBtn.textContent = state.isShuffled ? '🔀 Shuffle All Rounds (ON)' : '🔀 Shuffle All Rounds';
   updateCardDisplay();
 }
 
