@@ -91,8 +91,52 @@ test('rounds move to the minimum available level', () => {
   state.hasRevealedCurrent = true;
   Engine.markCorrect(state); // B -> level 2
 
+  assert.equal(state.roundTransition.level, 2);
+  assert.equal(state.roundTransition.count, 2);
+
+  Engine.startNextRound(state);
   const current = Engine.getCurrentCard(state);
   assert.equal(state.cardStates[current.id].level, 2);
+});
+
+test('round transition appears after completing a round', () => {
+  const state = buildState('A\\one$B\\two');
+
+  state.hasRevealedCurrent = true;
+  Engine.markCorrect(state); // A -> level 2
+
+  state.hasRevealedCurrent = true;
+  Engine.markCorrect(state); // B -> level 2 (round complete)
+
+  assert.equal(state.roundTransition.level, 2);
+  assert.equal(state.roundTransition.count, 2);
+  assert.equal(Engine.getCurrentCard(state), null);
+
+  const started = Engine.startNextRound(state);
+  assert.equal(started, true);
+  assert.equal(state.roundTransition, null);
+  assert.equal(Engine.getCurrentCard(state).term, 'A');
+});
+
+test('failed cards remain in the next round at the lowest level', () => {
+  const state = buildState('A\\one$B\\two$C\\three');
+
+  state.hasRevealedCurrent = true;
+  Engine.markWrong(state); // A stays level 1
+
+  state.hasRevealedCurrent = true;
+  Engine.markCorrect(state); // B -> level 2
+
+  state.hasRevealedCurrent = true;
+  Engine.markCorrect(state); // C -> level 2, round complete
+
+  assert.equal(state.roundTransition.level, 1);
+  assert.equal(state.roundTransition.count, 1);
+
+  Engine.startNextRound(state);
+  const current = Engine.getCurrentCard(state);
+  assert.equal(current.term, 'A');
+  assert.equal(state.round.cardIds.length, 1);
 });
 
 test('toggleShuffle uses shuffle order and resets current index', () => {
@@ -101,6 +145,7 @@ test('toggleShuffle uses shuffle order and resets current index', () => {
   const state = buildState('A\\one$B\\two$C\\three', rng);
 
   state.currentCardIndex = 2;
+  state.round.index = 2;
   Engine.toggleShuffle(state, rng);
 
   const filtered = Engine.getFilteredCards(state);
@@ -116,6 +161,16 @@ test('removeCurrentCard deletes current card from the session', () => {
   assert.equal(removed, true);
   assert.equal(state.cards.length, 1);
   assert.equal(state.cards[0].term, 'B');
+  assert.equal(Engine.getCurrentCard(state).term, 'B');
+});
+
+test('startNextRound returns false when there is no next round', () => {
+  const state = buildState('A\\one');
+  Engine.removeCurrentCard(state);
+
+  assert.equal(state.roundTransition.level, null);
+  assert.equal(state.roundTransition.count, 0);
+  assert.equal(Engine.startNextRound(state), false);
 });
 
 test('markCorrect does nothing before first reveal', () => {

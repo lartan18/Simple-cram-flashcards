@@ -27,6 +27,8 @@
       isShuffled: false,
       hasRevealedCurrent: false,
       cardStates: {},
+      round: { cardIds: [], index: 0 },
+      roundTransition: null,
     };
 
     state.cards.forEach((card) => {
@@ -36,7 +38,28 @@
       };
     });
 
+    buildRound(state);
     return state;
+  }
+
+  function buildRound(state) {
+    const filtered = getFilteredCards(state);
+    state.round = {
+      cardIds: filtered.map(({ card }) => card.id),
+      index: 0,
+    };
+    state.currentCardIndex = 0;
+  }
+
+  function getRoundInfo(state) {
+    const levels = Object.values(state.cardStates).map((s) => s.level);
+    if (levels.length === 0) {
+      return { level: null, count: 0 };
+    }
+
+    const minLevel = Math.min(...levels);
+    const count = levels.filter((level) => level === minLevel).length;
+    return { level: minLevel, count };
   }
 
   function getCardsAtMinLevel(state) {
@@ -63,11 +86,12 @@
   }
 
   function getCurrentCard(state) {
-    const filteredCards = getFilteredCards(state);
-    if (filteredCards.length === 0) return null;
+    if (state.roundTransition) return null;
+    if (!state.round || state.round.cardIds.length === 0) return null;
 
-    const actualIndex = state.cards.indexOf(filteredCards[state.currentCardIndex].card);
-    return state.cards[actualIndex];
+    const safeIndex = Math.min(state.round.index, state.round.cardIds.length - 1);
+    const cardId = state.round.cardIds[safeIndex];
+    return state.cards.find((card) => card.id === cardId) || null;
   }
 
   function flipCard(state) {
@@ -83,22 +107,21 @@
   }
 
   function advanceAfterAnswer(state, answeredCardId) {
-    const filteredCards = getFilteredCards(state);
-    if (filteredCards.length === 0) {
-      state.currentCardIndex = 0;
+    if (!state.round || state.round.cardIds.length === 0) {
+      state.roundTransition = getRoundInfo(state);
       return;
     }
 
-    const indexInFiltered = filteredCards.findIndex(({ card }) => card.id === answeredCardId);
+    const indexInRound = state.round.cardIds.indexOf(answeredCardId);
+    const nextIndex = indexInRound === -1 ? state.round.index : indexInRound + 1;
 
-    if (indexInFiltered === -1) {
-      if (state.currentCardIndex >= filteredCards.length) {
-        state.currentCardIndex = 0;
-      }
-    } else if (indexInFiltered >= filteredCards.length - 1) {
+    if (nextIndex >= state.round.cardIds.length) {
+      state.roundTransition = getRoundInfo(state);
+      state.round = { cardIds: [], index: 0 };
       state.currentCardIndex = 0;
     } else {
-      state.currentCardIndex = indexInFiltered + 1;
+      state.round.index = nextIndex;
+      state.currentCardIndex = nextIndex;
     }
 
     state.hasRevealedCurrent = false;
@@ -139,9 +162,22 @@
     state.cards.splice(removeIndex, 1);
     delete state.cardStates[card.id];
 
-    const filteredCards = getFilteredCards(state);
-    if (state.currentCardIndex >= filteredCards.length) {
-      state.currentCardIndex = Math.max(0, filteredCards.length - 1);
+    if (state.round) {
+      const roundIndex = state.round.cardIds.indexOf(card.id);
+      if (roundIndex !== -1) {
+        state.round.cardIds.splice(roundIndex, 1);
+        if (roundIndex < state.round.index) {
+          state.round.index -= 1;
+        }
+      }
+
+      if (state.round.index >= state.round.cardIds.length) {
+        if (state.round.cardIds.length === 0) {
+          state.roundTransition = getRoundInfo(state);
+        }
+        state.round.index = 0;
+      }
+      state.currentCardIndex = state.round.index;
     }
 
     state.isRevealed = false;
@@ -150,9 +186,10 @@
   }
 
   function nextCard(state) {
-    const filteredCards = getFilteredCards(state);
-    if (filteredCards.length > 0 && state.currentCardIndex < filteredCards.length - 1) {
-      state.currentCardIndex += 1;
+    if (state.roundTransition) return false;
+    if (state.round.cardIds.length > 0 && state.round.index < state.round.cardIds.length - 1) {
+      state.round.index += 1;
+      state.currentCardIndex = state.round.index;
       state.isRevealed = false;
       state.hasRevealedCurrent = false;
       return true;
@@ -161,8 +198,10 @@
   }
 
   function prevCard(state) {
-    if (state.currentCardIndex > 0) {
-      state.currentCardIndex -= 1;
+    if (state.roundTransition) return false;
+    if (state.round.index > 0) {
+      state.round.index -= 1;
+      state.currentCardIndex = state.round.index;
       state.isRevealed = false;
       state.hasRevealedCurrent = false;
       return true;
@@ -181,6 +220,8 @@
     state.currentCardIndex = 0;
     state.isRevealed = false;
     state.hasRevealedCurrent = false;
+    state.roundTransition = null;
+    buildRound(state);
   }
 
   function toggleShuffle(state, rng = Math.random) {
@@ -192,10 +233,22 @@
       });
     }
 
-    state.currentCardIndex = 0;
     state.isRevealed = false;
     state.hasRevealedCurrent = false;
+    if (!state.roundTransition) {
+      buildRound(state);
+    }
     return state.isShuffled;
+  }
+
+  function startNextRound(state) {
+    if (!state.roundTransition) return false;
+    if (!state.roundTransition.level || state.roundTransition.count === 0) return false;
+    state.roundTransition = null;
+    state.isRevealed = false;
+    state.hasRevealedCurrent = false;
+    buildRound(state);
+    return true;
   }
 
   function formatTitleFromPath(filePath) {
@@ -224,6 +277,7 @@
     resetState,
     toggleShuffle,
     advanceAfterAnswer,
+    startNextRound,
     formatTitleFromPath,
   };
 

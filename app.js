@@ -114,22 +114,51 @@ function getCurrentCard() {
 function updateCardDisplay() {
   const card = getCurrentCard();
 
-  if (!card) {
-    cardContent.textContent = 'No cards available';
-    cardCounter.textContent = 'Card 0 of 0';
-    flipBtn.disabled = true;
+  if (state.roundTransition) {
+    const info = state.roundTransition;
+    const count = info.count || 0;
+    if (count === 0 || !info.level) {
+      cardContent.textContent = 'All cards complete';
+      flipBtn.textContent = 'Flip card';
+      flipBtn.disabled = true;
+      flashcard.classList.remove('round-transition');
+    } else {
+      const levelText = `Level ${info.level}`;
+      const cardText = count === 1 ? '1 card' : `${count} cards`;
+      cardContent.textContent = `Next round\n${levelText} · ${cardText}`;
+      flipBtn.textContent = 'Start round';
+      flipBtn.disabled = false;
+      flashcard.classList.add('round-transition');
+    }
+    cardContent.className = 'card-content';
+    cardCounter.textContent = 'Next round';
     wrongBtn.disabled = true;
     correctBtn.disabled = true;
     removeBtn.disabled = true;
     return;
   }
 
-  const filteredCards = getFilteredCards();
-  cardCounter.textContent = `Card ${state.currentCardIndex + 1} of ${filteredCards.length}`;
+  if (!card) {
+    cardContent.textContent = 'No cards available';
+    cardCounter.textContent = 'Card 0 of 0';
+    flipBtn.textContent = 'Flip card';
+    flipBtn.disabled = true;
+    wrongBtn.disabled = true;
+    correctBtn.disabled = true;
+    removeBtn.disabled = true;
+    flashcard.classList.remove('round-transition');
+    return;
+  }
 
+  const roundSize = state.round ? state.round.cardIds.length : 0;
+  const roundIndex = state.round ? state.round.index : 0;
+  cardCounter.textContent = `Card ${roundIndex + 1} of ${roundSize}`;
+
+  flipBtn.textContent = 'Flip card';
   wrongBtn.disabled = !state.hasRevealedCurrent;
   correctBtn.disabled = !state.hasRevealedCurrent;
   removeBtn.disabled = false;
+  flashcard.classList.remove('round-transition');
 
   if (state.isRevealed) {
     cardContent.textContent = card.definition;
@@ -141,6 +170,14 @@ function updateCardDisplay() {
 }
 
 function flipCard() {
+  if (state.roundTransition) {
+    if (FlashcardEngine.startNextRound(state)) {
+      updateProgressBar();
+      updateCardDisplay();
+    }
+    return;
+  }
+
   if (!FlashcardEngine.flipCard(state)) return;
   updateCardDisplay();
 }
@@ -177,13 +214,18 @@ function toggleShuffle() {
 function updateProgressBar() {
   const levelCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
   const currentCard = getCurrentCard();
-  const currentLevel = currentCard ? state.cardStates[currentCard.id].level : null;
+  const currentLevel = state.roundTransition
+    ? state.roundTransition.level
+    : currentCard
+      ? state.cardStates[currentCard.id].level
+      : null;
 
   Object.values(state.cardStates).forEach((cardState) => {
     levelCounts[cardState.level]++;
   });
 
   progressBar.innerHTML = Object.keys(levelCounts)
+    .sort((a, b) => Number(b) - Number(a))
     .map((level) => {
       const count = levelCounts[level];
       const isActive = count > 0 ? 'active' : '';
@@ -201,6 +243,16 @@ function updateProgressBar() {
 // Keyboard Shortcuts
 function handleKeyPress(e) {
   if (!state.cards || state.cards.length === 0) return;
+
+  if (state.roundTransition) {
+    if (e.key === 'ArrowRight') {
+      if (FlashcardEngine.startNextRound(state)) {
+        updateProgressBar();
+        updateCardDisplay();
+      }
+    }
+    return;
+  }
 
   const canAnswer = state.hasRevealedCurrent;
 

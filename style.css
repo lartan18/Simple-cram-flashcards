@@ -6,8 +6,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
-  background: #fff;
+  background: #f4f6fb;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -15,18 +14,9 @@ body {
   padding: 20px;
 }
 
-.container {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  max-width: 900px;
-  width: 100%;
-  padding: 24px;
-}
-
 h1 {
   color: #333;
-  margin-bottom: 12px;
+  margin: 0 0 2px;
   text-align: left;
 }
 
@@ -37,8 +27,10 @@ h2 {
 }
 
 .app-title {
-  font-size: 1.2em;
+  font-size: 1.8em;
   font-weight: 600;
+  width: 520px;
+  max-width: 100%;
 }
 
 /* Configuration Section */
@@ -119,25 +111,20 @@ h2 {
   color: #d32f2f;
   font-size: 0.9em;
   font-weight: 500;
-  min-height: 20px;
+  min-height: 12px;
+  margin-bottom: 0;
 }
 
 /* App Section */
 .app-section {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
+  align-items: flex-start;
 }
 
 .app-section.hidden {
   display: none;
-}
-
-/* Layout */
-.layout {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
 }
 
 .progress-bar {
@@ -146,34 +133,39 @@ h2 {
   flex-direction: column;
 }
 
-.main-pane {
-  flex: 1;
-  min-width: 0;
+.progress-pane {
+  width: 140px;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 12px;
-}
-
-.progress-pane {
-  width: 180px;
-  background: #f9f9f9;
-  padding: 12px;
-  border-radius: 8px;
-  border-left: 4px solid #667eea;
+  justify-content: center;
+  height: 100%;
 }
 
 .toolbar {
   display: flex;
   gap: 8px;
   align-items: center;
+  width: 520px;
+  max-width: 100%;
+}
+
+.card-row {
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
 }
 
 .level-item {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
-  background: white;
+  padding: 6px 10px;
+  background: #fafafa;
   border-radius: 6px;
   border: 1px solid #ddd;
   font-size: 0.9em;
@@ -185,13 +177,17 @@ h2 {
 }
 
 .level-badge {
-  background: #667eea;
+  background: #555;
   color: white;
   padding: 2px 8px;
   border-radius: 4px;
   font-weight: 600;
   min-width: 28px;
   text-align: center;
+}
+
+.level-item.current .level-badge {
+  background: #667eea;
 }
 
 .level-count {
@@ -202,15 +198,18 @@ h2 {
 /* Flashcard */
 .flashcard-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   margin: 8px 0 4px;
+  width: 520px;
+  max-width: 100%;
 }
 
 .flashcard {
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
   aspect-ratio: 4 / 3;
-  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  background: linear-gradient(135deg, #f7f9ff 0%, #ffffff 100%);
+  border: 1px solid #e2e6ef;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -226,19 +225,25 @@ h2 {
   box-shadow: 0 15px 40px rgba(0,0,0,0.2);
 }
 
+.flashcard.round-transition {
+  background: linear-gradient(135deg, #fff3cd 0%, #fff9e8 100%);
+  border-color: #f0c36d;
+}
+
 .card-content {
   color: black;
-  font-size: clamp(1.1em, 2.2vw, 2em);
+  font-size: clamp(0.9em, 2.1vw, 1.8em);
   text-align: center;
   padding: 22px;
   font-weight: 600;
   line-height: 1.3;
   word-wrap: break-word;
   word-break: break-word;
+  white-space: pre-wrap;
 }
 
 .card-content.definition {
-  font-size: clamp(1em, 1.8vw, 1.6em);
+  font-size: clamp(0.85em, 1.7vw, 1.4em);
   color: black;
 }
 
@@ -265,25 +270,19 @@ h2 {
 .controls {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
+  width: 520px;
+  max-width: 100%;
 }
 
-.keyboard-controls {
-  background: #f0f7ff;
-  padding: 15px;
-  border-radius: 8px;
-  border-left: 4px solid #667eea;
-}
-
-.hint {
-  font-size: 0.85em;
-  color: #666;
-  margin-bottom: 12px;
-  font-style: italic;
+.controls-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
 }
 
 .control-btn {
-  padding: 10px 16px;
+  padding: 10px 12px;
   background: #f5f5f5;
   color: #333;
   border: 2px solid #ddd;
@@ -292,6 +291,7 @@ h2 {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
+  flex: 1;
 }
 
 .control-btn:hover:not(:disabled) {
@@ -337,13 +337,14 @@ h2 {
 
 .icon-btn.is-active {
   background: #e8f0ff;
-  border-color: #667eea;
+  border-color: #444;
 }
 
 /* Responsive */
 @media (max-width: 900px) {
-  .layout {
+  .card-row {
     flex-direction: column;
+    align-items: flex-start;
   }
 
   .progress-pane {
@@ -357,18 +358,15 @@ h2 {
   }
 
   .card-content {
-    font-size: clamp(1em, 4vw, 1.6em);
+    font-size: clamp(0.85em, 4vw, 1.3em);
   }
 
   .card-content.definition {
-    font-size: clamp(0.95em, 3.5vw, 1.3em);
+    font-size: clamp(0.8em, 3.5vw, 1.1em);
   }
 
   .flashcard {
     aspect-ratio: 3 / 2;
   }
 
-  .control-btn {
-    width: 100%;
-  }
 }

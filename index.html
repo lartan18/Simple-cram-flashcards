@@ -7,44 +7,39 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <div id="appSection" class="app-section">
-      <div class="layout">
-        <div class="main-pane">
-          <h1 id="appTitle" class="app-title">Loading...</h1>
-          <div id="loadError" class="error-msg"></div>
+  <div id="appSection" class="app-section">
+    <h1 id="appTitle" class="app-title">Loading...</h1>
+    <div id="loadError" class="error-msg"></div>
 
-          <div class="toolbar">
-            <button id="shuffleBtn" class="icon-btn" title="Shuffle rounds" aria-label="Shuffle rounds">🔀</button>
-            <button id="removeBtn" class="icon-btn" title="Remove from session" aria-label="Remove from session">🗑️</button>
-          </div>
+    <div class="toolbar">
+      <button id="shuffleBtn" class="icon-btn" title="Shuffle rounds" aria-label="Shuffle rounds">🔀</button>
+      <button id="removeBtn" class="icon-btn" title="Remove from session" aria-label="Remove from session">🗑️</button>
+    </div>
 
-          <!-- Flashcard Display -->
-          <div class="flashcard-container">
-            <div id="flashcard" class="flashcard">
-              <div id="cardContent" class="card-content">Loading...</div>
-              <div class="card-meta">
-                <span id="cardCounter">Card 1 of 0</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Controls -->
-          <div class="controls">
-            <div class="keyboard-controls">
-              <p class="hint">Keyboard: ↑/↓ Flip | ← Wrong | → Correct</p>
-              <button id="flipBtn" class="control-btn">Flip Card</button>
-              <button id="wrongBtn" class="control-btn wrong-btn" disabled>❌ Wrong (← arrow)</button>
-              <button id="correctBtn" class="control-btn correct-btn" disabled>✓ Correct (→ arrow)</button>
-            </div>
+    <div class="card-row">
+      <!-- Flashcard Display -->
+      <div class="flashcard-container">
+        <div id="flashcard" class="flashcard">
+          <div id="cardContent" class="card-content">Loading...</div>
+          <div class="card-meta">
+            <span id="cardCounter">Card 1 of 0</span>
           </div>
         </div>
+      </div>
 
-        <!-- Progress Visualizer -->
-        <aside class="progress-pane">
-          <h2>Progress</h2>
-          <div id="progressBar" class="progress-bar"></div>
-        </aside>
+      <!-- Progress Visualizer -->
+      <aside class="progress-pane">
+        <h2>Progress</h2>
+        <div id="progressBar" class="progress-bar"></div>
+      </aside>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <div class="controls-row">
+        <button id="wrongBtn" class="control-btn wrong-btn" disabled>Wrong</button>
+        <button id="flipBtn" class="control-btn">Flip card</button>
+        <button id="correctBtn" class="control-btn correct-btn" disabled>Correct</button>
       </div>
     </div>
   </div>
