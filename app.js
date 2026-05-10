@@ -1,6 +1,6 @@
 // File configuration (edit these three values)
 // const FILE_PATH = 'c:\\Users\\Lars\\Personlig IT\\cram-replacement\\sample-flashcards.txt';
-const FILE_PATH = "./sample-flashcards.txt"
+const FILE_PATH = "./week-3.txt"
 const TERM_SEPARATOR = '\\';
 const CARD_SEPARATOR = '$';
 
