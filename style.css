@@ -19,21 +19,26 @@ body {
   background: white;
   border-radius: 12px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  max-width: 700px;
+  max-width: 900px;
   width: 100%;
-  padding: 40px;
+  padding: 24px;
 }
 
 h1 {
   color: #333;
-  margin-bottom: 30px;
-  text-align: center;
+  margin-bottom: 12px;
+  text-align: left;
 }
 
 h2 {
   color: #555;
   font-size: 1.2em;
   margin-bottom: 15px;
+}
+
+.app-title {
+  font-size: 1.2em;
+  font-weight: 600;
 }
 
 /* Configuration Section */
@@ -121,29 +126,46 @@ h2 {
 .app-section {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 16px;
 }
 
 .app-section.hidden {
   display: none;
 }
 
-/* Progress Visualizer */
-.visualizer {
-  background: #f9f9f9;
-  padding: 15px;
-  border-radius: 8px;
-  border-left: 4px solid #667eea;
+/* Layout */
+.layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
 }
 
 .progress-bar {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap: 8px;
+  flex-direction: column;
 }
 
-.remove-btn {
-  align-self: center;
+.main-pane {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.progress-pane {
+  width: 180px;
+  background: #f9f9f9;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 .level-item {
@@ -155,6 +177,11 @@ h2 {
   border-radius: 6px;
   border: 1px solid #ddd;
   font-size: 0.9em;
+}
+
+.level-item.current {
+  border-color: #667eea;
+  background: #e8f0ff;
 }
 
 .level-badge {
@@ -176,7 +203,7 @@ h2 {
 .flashcard-container {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 8px 0 4px;
 }
 
 .flashcard {
@@ -191,6 +218,7 @@ h2 {
   cursor: pointer;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   transition: all 0.3s;
+  position: relative;
 }
 
 .flashcard:hover {
@@ -200,9 +228,9 @@ h2 {
 
 .card-content {
   color: black;
-  font-size: 2.5em;
+  font-size: clamp(1.1em, 2.2vw, 2em);
   text-align: center;
-  padding: 30px;
+  padding: 22px;
   font-weight: 600;
   line-height: 1.3;
   word-wrap: break-word;
@@ -210,7 +238,7 @@ h2 {
 }
 
 .card-content.definition {
-  font-size: 1.8em;
+  font-size: clamp(1em, 1.8vw, 1.6em);
   color: black;
 }
 
@@ -222,21 +250,15 @@ h2 {
   margin-top: 20px;
 }
 
-/* Card Info */
-.card-info {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 15px;
-  background: #f9f9f9;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.card-info p {
-  font-size: 0.95em;
-  color: #555;
-  font-weight: 500;
+.card-meta {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  font-size: 0.75em;
+  color: #333;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 4px 6px;
+  border-radius: 4px;
 }
 
 /* Controls */
@@ -292,52 +314,54 @@ h2 {
   background: #e8f5e9;
 }
 
-/* Navigation */
-.navigation {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.nav-btn {
-  padding: 10px 16px;
+.icon-btn {
+  width: 34px;
+  height: 34px;
+  padding: 0;
   background: #f5f5f5;
   color: #333;
   border: 2px solid #ddd;
   border-radius: 6px;
-  font-size: 0.95em;
-  font-weight: 600;
+  font-size: 1em;
   cursor: pointer;
   transition: all 0.2s;
-  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.nav-btn:hover {
+.icon-btn:hover {
   background: #e8e8e8;
   border-color: #667eea;
 }
 
-.nav-btn.secondary {
-  background: #fff3cd;
-  border-color: #ffc107;
-}
-
-.nav-btn.secondary:hover {
-  background: #ffe0b2;
+.icon-btn.is-active {
+  background: #e8f0ff;
+  border-color: #667eea;
 }
 
 /* Responsive */
+@media (max-width: 900px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .progress-pane {
+    width: 100%;
+  }
+}
+
 @media (max-width: 600px) {
   .container {
     padding: 25px;
   }
 
   .card-content {
-    font-size: 1.8em;
+    font-size: clamp(1em, 4vw, 1.6em);
   }
 
   .card-content.definition {
-    font-size: 1.3em;
+    font-size: clamp(0.95em, 3.5vw, 1.3em);
   }
 
   .flashcard {
@@ -346,9 +370,5 @@ h2 {
 
   .control-btn {
     width: 100%;
-  }
-
-  .nav-btn {
-    flex: 1;
   }
 }

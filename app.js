@@ -9,11 +9,11 @@ let state = FlashcardEngine.createState([]);
 
 // DOM Elements
 const loadError = document.getElementById('loadError');
+const appTitle = document.getElementById('appTitle');
 
 const flashcard = document.getElementById('flashcard');
 const cardContent = document.getElementById('cardContent');
 const cardCounter = document.getElementById('cardCounter');
-const cardLevel = document.getElementById('cardLevel');
 const progressBar = document.getElementById('progressBar');
 
 const flipBtn = document.getElementById('flipBtn');
@@ -22,19 +22,12 @@ const correctBtn = document.getElementById('correctBtn');
 const shuffleBtn = document.getElementById('shuffleBtn');
 const removeBtn = document.getElementById('removeBtn');
 
-const prevCardBtn = document.getElementById('prevCardBtn');
-const nextCardBtn = document.getElementById('nextCardBtn');
-const startOverBtn = document.getElementById('startOverBtn');
-
 // Event Listeners
 flipBtn.addEventListener('click', flipCard);
 wrongBtn.addEventListener('click', markWrong);
 correctBtn.addEventListener('click', markCorrect);
 shuffleBtn.addEventListener('click', toggleShuffle);
 removeBtn.addEventListener('click', removeCurrentCard);
-prevCardBtn.addEventListener('click', prevCard);
-nextCardBtn.addEventListener('click', nextCard);
-startOverBtn.addEventListener('click', startOver);
 flashcard.addEventListener('click', flipCard);
 
 document.addEventListener('keydown', handleKeyPress);
@@ -51,6 +44,8 @@ function loadFlashcards() {
     return;
   }
 
+  appTitle.textContent = FlashcardEngine.formatTitleFromPath(path);
+  document.title = appTitle.textContent;
   loadError.textContent = 'Loading...';
 
   fetch('/api/load-file', {
@@ -71,6 +66,9 @@ function loadFlashcards() {
       }
       state = FlashcardEngine.createState(cards);
       loadError.textContent = '';
+      shuffleBtn.classList.remove('is-active');
+      shuffleBtn.title = 'Shuffle rounds';
+      shuffleBtn.setAttribute('aria-label', shuffleBtn.title);
       updateCardDisplay();
       updateProgressBar();
     })
@@ -119,7 +117,6 @@ function updateCardDisplay() {
   if (!card) {
     cardContent.textContent = 'No cards available';
     cardCounter.textContent = 'Card 0 of 0';
-    cardLevel.textContent = 'Level: -';
     flipBtn.disabled = true;
     wrongBtn.disabled = true;
     correctBtn.disabled = true;
@@ -130,8 +127,6 @@ function updateCardDisplay() {
   const filteredCards = getFilteredCards();
   cardCounter.textContent = `Card ${state.currentCardIndex + 1} of ${filteredCards.length}`;
 
-  const level = state.cardStates[card.id].level;
-  cardLevel.textContent = `Level: ${level}/5`;
   wrongBtn.disabled = !state.hasRevealedCurrent;
   correctBtn.disabled = !state.hasRevealedCurrent;
   removeBtn.disabled = false;
@@ -168,32 +163,21 @@ function removeCurrentCard() {
   updateCardDisplay();
 }
 
-function nextCard() {
-  if (!FlashcardEngine.nextCard(state)) return;
-  updateCardDisplay();
-}
-
-function prevCard() {
-  if (!FlashcardEngine.prevCard(state)) return;
-  updateCardDisplay();
-}
-
-function startOver() {
-  FlashcardEngine.resetState(state);
-  updateCardDisplay();
-  updateProgressBar();
-}
-
 // Shuffle
 function toggleShuffle() {
   FlashcardEngine.toggleShuffle(state);
-  shuffleBtn.textContent = state.isShuffled ? '🔀 Shuffle All Rounds (ON)' : '🔀 Shuffle All Rounds';
+  shuffleBtn.classList.toggle('is-active', state.isShuffled);
+  shuffleBtn.title = state.isShuffled ? 'Shuffle rounds (on)' : 'Shuffle rounds';
+  shuffleBtn.setAttribute('aria-label', shuffleBtn.title);
   updateCardDisplay();
+  updateProgressBar();
 }
 
 // Progress Bar
 function updateProgressBar() {
   const levelCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+  const currentCard = getCurrentCard();
+  const currentLevel = currentCard ? state.cardStates[currentCard.id].level : null;
 
   Object.values(state.cardStates).forEach((cardState) => {
     levelCounts[cardState.level]++;
@@ -203,8 +187,9 @@ function updateProgressBar() {
     .map((level) => {
       const count = levelCounts[level];
       const isActive = count > 0 ? 'active' : '';
+      const isCurrent = currentLevel && Number(level) === currentLevel ? 'current' : '';
       return `
-        <div class="level-item ${isActive}">
+        <div class="level-item ${isActive} ${isCurrent}">
           <span class="level-badge">L${level}</span>
           <span class="level-count">${count}</span>
         </div>

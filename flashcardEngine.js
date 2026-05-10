@@ -198,6 +198,17 @@
     return state.isShuffled;
   }
 
+  function formatTitleFromPath(filePath) {
+    if (!filePath) return 'Flashcards';
+    const fileName = filePath.split(/[\\/]/).pop() || '';
+    const base = fileName.replace(/\.txt$/i, '').replace(/-/g, ' ').trim();
+    if (!base) return 'Flashcards';
+    return base
+      .split(/\s+/)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  }
+
   const api = {
     parseCards,
     createState,
@@ -213,6 +224,7 @@
     resetState,
     toggleShuffle,
     advanceAfterAnswer,
+    formatTitleFromPath,
   };
 
   if (typeof module !== 'undefined' && module.exports) {

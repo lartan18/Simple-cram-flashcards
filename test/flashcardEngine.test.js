@@ -37,6 +37,16 @@ test('createState initializes all cards at level 1', () => {
   });
 });
 
+test('formatTitleFromPath formats file names for the UI title', () => {
+  const title = Engine.formatTitleFromPath('c:\\cards\\my-flashcards.txt');
+  assert.equal(title, 'My Flashcards');
+});
+
+test('formatTitleFromPath handles relative paths and casing', () => {
+  const title = Engine.formatTitleFromPath('./WEEK-3.TXT');
+  assert.equal(title, 'Week 3');
+});
+
 test('getCardsAtMinLevel returns only the lowest-level cards', () => {
   const state = buildState('A\\one$B\\two$C\\three');
   state.cardStates['card-0'].level = 2;
