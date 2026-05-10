@@ -27,6 +27,7 @@ const flipBtn = document.getElementById('flipBtn');
 const wrongBtn = document.getElementById('wrongBtn');
 const correctBtn = document.getElementById('correctBtn');
 const shuffleBtn = document.getElementById('shuffleBtn');
+const removeBtn = document.getElementById('removeBtn');
 
 const prevCardBtn = document.getElementById('prevCardBtn');
 const nextCardBtn = document.getElementById('nextCardBtn');
@@ -37,6 +38,7 @@ flipBtn.addEventListener('click', flipCard);
 wrongBtn.addEventListener('click', markWrong);
 correctBtn.addEventListener('click', markCorrect);
 shuffleBtn.addEventListener('click', toggleShuffle);
+removeBtn.addEventListener('click', removeCurrentCard);
 prevCardBtn.addEventListener('click', prevCard);
 nextCardBtn.addEventListener('click', nextCard);
 startOverBtn.addEventListener('click', startOver);
@@ -136,6 +138,10 @@ function initializeGame() {
 
 // Card Navigation & Display
 function getCardsAtMinLevel() {
+  if (!state.cards.length || Object.keys(state.cardStates).length === 0) {
+    return [];
+  }
+
   const minLevel = Math.min(...Object.values(state.cardStates).map((s) => s.level));
   return state.cards
     .map((card, index) => ({ card, index }))
@@ -172,6 +178,7 @@ function updateCardDisplay() {
     flipBtn.disabled = true;
     wrongBtn.disabled = true;
     correctBtn.disabled = true;
+    removeBtn.disabled = true;
     return;
   }
 
@@ -182,6 +189,7 @@ function updateCardDisplay() {
   cardLevel.textContent = `Level: ${level}/5`;
   wrongBtn.disabled = !state.hasRevealedCurrent;
   correctBtn.disabled = !state.hasRevealedCurrent;
+  removeBtn.disabled = false;
 
   if (state.isRevealed) {
     cardContent.textContent = card.definition;
@@ -210,8 +218,8 @@ function markWrong() {
     state.cardStates[card.id].level = 1;
     state.isRevealed = false;
     state.hasRevealedCurrent = false;
-    nextCardAuto();
     updateProgressBar();
+    advanceAfterAnswer(card.id);
   }
 }
 
@@ -225,18 +233,52 @@ function markCorrect() {
     }
     state.isRevealed = false;
     state.hasRevealedCurrent = false;
-    nextCardAuto();
     updateProgressBar();
+    advanceAfterAnswer(card.id);
   }
 }
 
-function nextCardAuto() {
+function removeCurrentCard() {
+  const card = getCurrentCard();
+  if (!card) return;
+
+  const removeIndex = state.cards.indexOf(card);
+  if (removeIndex === -1) return;
+
+  state.cards.splice(removeIndex, 1);
+  delete state.cardStates[card.id];
+
   const filteredCards = getFilteredCards();
-  if (state.currentCardIndex < filteredCards.length - 1) {
-    state.currentCardIndex += 1;
-  } else {
-    state.currentCardIndex = 0;
+  if (state.currentCardIndex >= filteredCards.length) {
+    state.currentCardIndex = Math.max(0, filteredCards.length - 1);
   }
+
+  state.isRevealed = false;
+  state.hasRevealedCurrent = false;
+  updateProgressBar();
+  updateCardDisplay();
+}
+
+function advanceAfterAnswer(answeredCardId) {
+  const filteredCards = getFilteredCards();
+  if (filteredCards.length === 0) {
+    state.currentCardIndex = 0;
+    updateCardDisplay();
+    return;
+  }
+
+  const indexInFiltered = filteredCards.findIndex(({ card }) => card.id === answeredCardId);
+
+  if (indexInFiltered === -1) {
+    if (state.currentCardIndex >= filteredCards.length) {
+      state.currentCardIndex = 0;
+    }
+  } else if (indexInFiltered >= filteredCards.length - 1) {
+    state.currentCardIndex = 0;
+  } else {
+    state.currentCardIndex = indexInFiltered + 1;
+  }
+
   state.hasRevealedCurrent = false;
   updateCardDisplay();
 }

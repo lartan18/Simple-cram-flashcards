@@ -142,6 +142,10 @@ h2 {
   flex-wrap: wrap;
 }
 
+.remove-btn {
+  align-self: center;
+}
+
 .level-item {
   display: flex;
   align-items: center;
