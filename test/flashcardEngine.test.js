@@ -118,6 +118,28 @@ test('round transition appears after completing a round', () => {
   assert.equal(Engine.getCurrentCard(state).term, 'A');
 });
 
+test('startNextRound reshuffles when shuffle is enabled', () => {
+  let i = 0;
+  const rng = () => [0.1, 0.2, 0.3, 0.3, 0.1, 0.2, 0.9, 0.8, 0.7][i++];
+  const state = buildState('A\\one$B\\two$C\\three', rng);
+
+  Engine.toggleShuffle(state, rng);
+  assert.equal(Engine.getCurrentCard(state).term, 'B');
+
+  state.hasRevealedCurrent = true;
+  Engine.markCorrect(state);
+  state.hasRevealedCurrent = true;
+  Engine.markCorrect(state);
+  state.hasRevealedCurrent = true;
+  Engine.markCorrect(state);
+
+  assert.equal(state.roundTransition.level, 2);
+  assert.equal(state.roundTransition.count, 3);
+
+  Engine.startNextRound(state, rng);
+  assert.equal(Engine.getCurrentCard(state).term, 'C');
+});
+
 test('failed cards remain in the next round at the lowest level', () => {
   const state = buildState('A\\one$B\\two$C\\three');
 

@@ -224,13 +224,17 @@
     buildRound(state);
   }
 
+  function assignShuffleOrders(state, rng = Math.random) {
+    state.cards.forEach((card) => {
+      state.cardStates[card.id].shuffleOrder = rng();
+    });
+  }
+
   function toggleShuffle(state, rng = Math.random) {
     state.isShuffled = !state.isShuffled;
 
     if (state.isShuffled) {
-      state.cards.forEach((card) => {
-        state.cardStates[card.id].shuffleOrder = rng();
-      });
+      assignShuffleOrders(state, rng);
     }
 
     state.isRevealed = false;
@@ -241,12 +245,15 @@
     return state.isShuffled;
   }
 
-  function startNextRound(state) {
+  function startNextRound(state, rng = Math.random) {
     if (!state.roundTransition) return false;
     if (!state.roundTransition.level || state.roundTransition.count === 0) return false;
     state.roundTransition = null;
     state.isRevealed = false;
     state.hasRevealedCurrent = false;
+    if (state.isShuffled) {
+      assignShuffleOrders(state, rng);
+    }
     buildRound(state);
     return true;
   }

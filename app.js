@@ -1,6 +1,10 @@
-// File configuration (edit these three values)
-// const FILE_PATH = 'c:\\Users\\Lars\\Personlig IT\\cram-replacement\\sample-flashcards.txt';
-const FILE_PATH = "./week-3.txt"
+// File configuration (edit these values)
+const FILE_OPTIONS = {
+  'Week 3': './week-3.txt',
+  'Week 4': './week-4.txt',
+  'Week 5': './week-5.txt',
+};
+const DEFAULT_FILE_KEY = 'Week 3';
 const TERM_SEPARATOR = '\\';
 const CARD_SEPARATOR = '$';
 
@@ -21,6 +25,7 @@ const wrongBtn = document.getElementById('wrongBtn');
 const correctBtn = document.getElementById('correctBtn');
 const shuffleBtn = document.getElementById('shuffleBtn');
 const removeBtn = document.getElementById('removeBtn');
+const deckSelect = document.getElementById('deckSelect');
 
 // Event Listeners
 flipBtn.addEventListener('click', flipCard);
@@ -29,18 +34,24 @@ correctBtn.addEventListener('click', markCorrect);
 shuffleBtn.addEventListener('click', toggleShuffle);
 removeBtn.addEventListener('click', removeCurrentCard);
 flashcard.addEventListener('click', flipCard);
+deckSelect.addEventListener('change', () => {
+  loadFlashcards(deckSelect.value);
+});
 
 document.addEventListener('keydown', handleKeyPress);
-document.addEventListener('DOMContentLoaded', loadFlashcards);
+document.addEventListener('DOMContentLoaded', () => {
+  deckSelect.value = FILE_OPTIONS[DEFAULT_FILE_KEY];
+  loadFlashcards(deckSelect.value);
+});
 
 // Load Flashcards
-function loadFlashcards() {
-  const path = FILE_PATH.trim();
+function loadFlashcards(filePath) {
+  const path = (filePath || '').trim();
   const termSep = TERM_SEPARATOR;
   const cardSep = CARD_SEPARATOR;
 
   if (!path) {
-    loadError.textContent = 'Please set FILE_PATH in app.js';
+    loadError.textContent = 'Please select a deck';
     return;
   }
 

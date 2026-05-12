@@ -12,8 +12,14 @@
     <div id="loadError" class="error-msg"></div>
 
     <div class="toolbar">
-      <button id="shuffleBtn" class="icon-btn" title="Shuffle rounds" aria-label="Shuffle rounds">🔀</button>
-      <button id="removeBtn" class="icon-btn" title="Remove from session" aria-label="Remove from session">🗑️</button>
+      <label for="deckSelect" class="sr-only">Choose deck</label>
+      <select id="deckSelect" class="deck-select" aria-label="Choose deck">
+        <option value="./week-3.txt">Week 3</option>
+        <option value="./week-4.txt">Week 4</option>
+        <option value="./week-5.txt">Week 5</option>
+      </select>
+      <button id="shuffleBtn" class="icon-btn" title="Shuffle rounds" aria-label="Shuffle rounds">Shuffle</button>
+      <button id="removeBtn" class="icon-btn" title="Remove from session" aria-label="Remove from session">Remove</button>
     </div>
 
     <div class="card-row">
