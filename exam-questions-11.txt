@@ -1,0 +1,10 @@
+Define "Static Analysis" in software security.\It is a passive scan of an application's code performed without actually executing the program to find implementation flaws.$
+What is a "Static Application Security Tool" (SAST)?\SAST tools (like Fortify or FindSecBugs) scan source code early in the SDLC to report security defects and assist in code review.$
+Explain "Pattern Matching" in static analysis.\The tool reports issues when it finds specific insecure code patterns, such as the use of predictable random functions for secrets.$
+What is a "Control Flow Graph" used for?\It visually represents all possible execution paths (if/while/for branches) that a program can take, helping an analyzer cover all branches.$
+Define the three components of "Taint Analysis."\1. Source (untrusted entry point); 2. Sink (dangerous exit point); 3. Sanitization (filter that cleans data).$
+Contrast "Soundness" and "Completeness" in tool metrics.\Soundness means no false positives (all reported bugs are real); Completeness means no false negatives (all actual bugs are found).$
+What is "Prompt Injection" in the context of LLMs?\It is a vulnerability where a user's input tricks an LLM into ignoring its instructions or performing unintended actions.$
+Explain the difference between Direct and Indirect Prompt Injection.\Direct comes from the user's prompt; Indirect occurs when an LLM processes external input (like a website) that contains hidden malicious instructions.$
+What is "Jailbreaking" an AI model?\It is a form of prompt injection specifically designed to bypass an AI's safety protocols and ethical guidelines.$
+What is the role of the "Security Engineer/Champion" in a development team?\They assist with threat modeling, help adopt security strategies, and facilitate the self-management of security within the team.$

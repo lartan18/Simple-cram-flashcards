@@ -1,0 +1,13 @@
+What is Threat Modeling?\Threat modeling involves analyzing system representations to highlight concerns about security and privacy characteristics as early as possible.$
+What is the "Hero Threat Modeler" anti-pattern?\This anti-pattern occurs when threat modeling depends on one person's **unique mindset** rather than a repeatable, team-based process.$
+Who are "The Crooks" in an attacker-centric model?\The crooks are the largest group of threat agents, accounting for 80-90% of cybercrimes, and are primarily motivated by financial profit.$
+What does the STRIDE acronym stand for?\It stands for **S**poofing, **T**ampering, **R**epudiation, **I**nformation disclosure, **D**enial of service, and **E**levation of privilege.$
+What is a Misuse Case?\A misuse case is an extension of a UML use case that describes a negative scenario or an action an attacker might attempt.$
+What is a Bow-tie Diagram?\A bow-tie diagram maps **threat causes** on the left, the unwanted event in the middle, and the **consequences** on the right to identify controls.$
+What is a Trust Boundary in a Data Flow Diagram (DFD)?\A trust boundary is a line in a DFD representing a change in the level of trust between different system components.$
+What is the Varied Viewpoints pattern in threat modeling?\Varied Viewpoints involves involving a **cross-functional team of experts** (developers, testers, architects, business) to ensure comprehensive threat analysis from multiple perspectives.$
+What is the Attacker-centric Model?\An attacker-centric model is a threat modeling approach focused on identifying **potential threat agents** and their motivations, skills, and resources to understand the types of attacks they might perform.$
+Who are "The Insiders" in threat modeling?\The insiders are threat agents who are **already inside the system** and may have high motivation and access, though they often need less funding than external attackers.$
+What is Spoofing?\Spoofing is a threat where an attacker **pretends to be someone or something they are not**, such as impersonating a trusted user or faking system identity.$
+What is Repudiation in the context of threats?\Repudiation is a threat where a user can **deny they performed an action** when no proof or audit trail exists, making accountability impossible.$
+What is an Attack Tree?\An Attack Tree is a diagram using **AND/OR nodes** to visualize the different paths and methods an attacker can take to reach an attack goal.$

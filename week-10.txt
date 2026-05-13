@@ -1,0 +1,10 @@
+What is the purpose of the Norwegian "Personopplysningsloven"?\It is the national law that incorporates GDPR and includes specific Norwegian clarifications and additional requirements.$
+What is a DPIA?\A **Data Protection Impact Assessment (DPIA)** is a formal document required by GDPR to assess risks for processing activities considered **"high risk"**.$
+What is the Principle of Data Minimization?\It requires that organizations only collect and process the minimum personal data necessary for a specific, defined purpose.$
+What is the "Anonymization Trap"?\The trap occurs when an organization mistakenly believes data is anonymous when it can actually still be **linked back** to an individual.$
+What is Purpose Limitation?\Purpose limitation ensures that personal data is only processed for the original, lawful reason it was collected and not reused for unintended goals.$
+What is the GDPR?\The **General Data Protection Regulation (GDPR)** is a European regulation that governs **how personal data** is collected, processed, stored, and protected, with strict requirements for organizations.$
+What is Purpose in data processing?\Purpose is the **specific business-oriented reason** why personal data is being collected and processed, and organizations must clearly define it before any processing begins.$
+What is Lawfulness in GDPR?\Lawfulness is the requirement that organizations must **identify a legal basis** for processing any personal data before collecting it, such as consent, contract, or legal obligation.$
+What is Storage Limitation?\Storage Limitation is the GDPR principle requiring organizations to **delete or anonymize** personal data once it is no longer needed for the purpose it was originally collected.$
+What is Data Protection by Design?\Data Protection by Design involves **integrating privacy assessments and security measures early** into the agile product development process, rather than adding them later.$

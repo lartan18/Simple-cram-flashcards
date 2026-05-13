@@ -1,0 +1,10 @@
+Define the three components of Access Control: Policy, Model, and Mechanism.\Policy* is the high-level rule (what is allowed); Model is the formal representation of that policy; Mechanism is the low-level implementation.$
+Explain "Privilege Creep" with an example.\It occurs when a user accumulates more access than needed, such as an employee changing departments but retaining permissions from their old role.$
+What is the main difference between DAC and MAC?\In DAC (Discretionary), the resource owner decides permissions; in MAC (Mandatory), a central authority enforces rules regardless of owner preference.$
+Contrast the Bell-LaPadula and Biba models.\Bell-LaPadula focuses on confidentiality (no read up, no write down); Biba focuses on integrity (no write up, no read down).$
+Explain the difference between RBAC and ABAC.\RBAC assigns access based on organizational roles; ABAC uses attributes (like time, location, or department) for finer-grained control.$
+What is the benefit of Single Sign-On (SSO) for an organization?\SSO improves user experience, simplifies authentication management across multiple apps, and reduces security risks from multiple sets of credentials.$
+Explain the roles of the "Service Provider" and "Identity Provider" in SSO.\The Service Provider (e.g., Blackboard) requests authentication; the Identity Provider (e.g., Feide) verifies the user and sends a confirmation back.$
+What is the distinction between OpenID Connect and OAuth 2.0?\OpenID Connect is for authentication (verifying identity); OAuth 2.0 is for authorization (granting access to specific data or APIs).$
+What causes a Buffer Overflow vulnerability?\It occurs when an application writes more data to a buffer than it can hold, causing the excess to spill into adjacent memory, which can lead to code execution.$
+How do "Type-Safe" languages mitigate buffer overflows?\Languages like Python or Java automatically manage memory allocation and boundaries, preventing data from overflowing into unintended memory sections.$

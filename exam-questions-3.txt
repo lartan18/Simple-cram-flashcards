@@ -1,0 +1,10 @@
+Explain the difference between Reflected XSS and Stored XSS.\Reflected XSS* is immediate and delivered via a request (like a URL); Stored XSS is saved on the server (database) and executes for every user who visits that page.$
+Provide one common mitigation strategy for XSS attacks.\Output Encoding/Sanitization* involves escaping HTML tags (e.g., converting < into &lt;) so the browser does not execute injected scripts.$
+Define CSRF and explain why it is effective.\Cross-Site Request Forgery* tricks a logged-in user's browser into sending unauthorized requests to a site where they are already authenticated; it works because the site only checks the cookie, not the intent.$
+List two primary defenses against CSRF.\The two primary defenses are **anti-CSRF (action) tokens** and configuring **SameSite cookie** settings in the browser.$
+What is SSRF and what is its main impact?\Server-Side Request Forgery* occurs when an attacker tricks a trusted server into making requests to internal services that the attacker cannot reach directly.$
+Explain the XXE vulnerability.\XML External Entity occurs when a weakly configured XML parser processes input containing references to external files, potentially disclosing sensitive local data.$
+What is Clickjacking and how can it be prevented?\Clickjacking uses invisible layers to trick users into clicking malicious buttons; it is prevented by setting the X-Frame-Options header to DENY or SAMEORIGIN.$
+Explain Insecure Deserialization and how to mitigate it.\It occurs when untrusted serialized data is turned back into objects without validation; mitigation involves not accepting serialized objects from untrusted sources or using JSON instead.$
+Define Salt and Pepper in the context of password hashing.\A Salt is a random number stored with the password to make hashes unique; a Pepper is a secret value added before hashing that is stored separately from the database.$
+List three ways of performing authentication and give an example of each.\1. Something you know (password); 2. Something you have (BankID/phone); 3. Something you are (biometrics like fingerprints).$

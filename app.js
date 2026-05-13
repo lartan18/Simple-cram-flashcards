@@ -1,10 +1,18 @@
 // File configuration (edit these values)
 const FILE_OPTIONS = {
+  'Week 1': './week-1.txt',
+  'Week 2': './week-2.txt',
   'Week 3': './week-3.txt',
   'Week 4': './week-4.txt',
   'Week 5': './week-5.txt',
+  'Week 6': './week-6.txt',
+  'Week 7': './week-7.txt',
+  'Week 8': './week-8.txt',
+  'Week 9': './week-9.txt',
+  'Week 10': './week-10.txt',
+  'Week 11': './week-11.txt',
 };
-const DEFAULT_FILE_KEY = 'Week 3';
+const DEFAULT_FILE_KEY = 'Week 1';
 const TERM_SEPARATOR = '\\';
 const CARD_SEPARATOR = '$';
 

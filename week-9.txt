@@ -1,0 +1,13 @@
+What are the 5 security hotspots in a microservice deployment?\The hotspots are the top-level service, load balancers, inter-service communication, containers, and host hardware.$
+What is the Circuit Breaker pattern?\The circuit breaker prevents a service failure from **cascading** through the system by stopping requests once a failure threshold is reached.$
+What is a Sidecar Proxy?\A sidecar proxy is a supporting process attached to a parent application that handles peripheral tasks like logging, security, or mTLS.$
+What are the four stages of a Software Supply Chain (SSC) attack?\The stages are **Compromise** (finding a weak link), **Alteration** (inserting malicious code), **Propagation** (spreading it), and **Exploitation**.$
+What is an SBOM?\A Software Bill of Materials (SBOM) is a nested inventory or "list of ingredients" identifying all components and dependencies in a piece of software.$
+What is Sigstore?\Sigstore is an infrastructure for **"keyless" software signing** that allows developers to sign code using their existing identity (like GitHub or Google).$
+What is Monolithic Architecture?\Monolithic Architecture is a traditional system design where the entire application is built as a single unit, requiring the whole application to be rebuilt and redeployed even for small changes.$
+What is Microservice Architecture?\Microservice Architecture is a system design using a **loose collection of services** that communicate via APIs and are **independently deployable**, allowing flexible development and scaling.$
+What is Polyglot Architecture?\Polyglot Architecture involves using **different programming languages** for different microservices, which provides flexibility but requires varied security expertise and maintenance.$
+What is Rate Throttling?\Rate Throttling is a **Denial of Service (DoS) countermeasure** that identifies network congestion and tells senders to reduce or stop packet transmission to prevent system overload.$
+What is Mutual TLS (mTLS)?\Mutual TLS requires every **microservice to have a key pair** to authenticate with other services, ensuring bidirectional trust and encrypted communication between services.$
+What is Version Locking?\Version Locking is a countermeasure that ensures a project uses a **specific safe version** of an upstream component, preventing automatic updates to potentially vulnerable versions.$
+What is In-toto?\In-toto is a framework that uses **layout and link metadata** to verify that software has not been tampered with or altered during the build and deployment process.$

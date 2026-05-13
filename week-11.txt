@@ -1,0 +1,11 @@
+What is Static Analysis?\Static analysis is a passive scan of an application's source code, bytecode, or binaries performed without actually executing the program.$
+What is Taint Analysis?\Taint analysis is a method of tracing **untrusted data** (sources) through a program to see if it reaches a potentially **dangerous operation** (sink).$
+What is the difference between Soundness and Completeness?\**Soundness** means every reported bug is real (no false positives), while Completeness means every actual bug is found (no false negatives).$
+What is Jailbreaking in the context of LLMs?\Jailbreaking is a form of prompt injection designed to **bypass an AI's safety protocols** and ethical filters.$
+What is an Indirect Prompt Injection?\It occurs when an LLM processes input from an external source (like a website or file) that contains hidden malicious instructions.$
+What is SAST?\**Static Application Security Testing (SAST)** tools (like FindSecBugs or Fortify) scan source code to report security defects and vulnerabilities early in the development process.$
+What is Pattern Matching in static analysis?\Pattern Matching is a technique that reports security issues when specific **insecure code patterns** (like unsafe random functions or SQL concatenation) are found in the code.$
+What is a Control Flow Graph?\A **Control Flow Graph (CFG)** is a visual representation of all possible execution paths and branches a program can take, used in static analysis to trace data flow.$
+What is Tainted Data?\Tainted Data is **input from an untrusted source** (like user input) that has not yet been validated or cleaned, and may contain malicious content.$
+What is a Dangerous Sink?\A Dangerous Sink is a **code exit point** where tainted data can cause security issues, such as in a database write, SQL query, or shell command execution.$
+What is Prompt Injection?\Prompt Injection is an **LLM vulnerability** where user input tricks the model into ignoring its original instructions and performing unintended actions.$

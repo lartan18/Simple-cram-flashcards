@@ -1,0 +1,10 @@
+Explain how a Vigenère Cipher improves upon a simple Shift Cipher.\The Vigenère cipher uses a keyword where each letter shifts the plaintext by a different amount, creating many more possible keys than the 26 in a Shift cipher.$
+What are the four requirements for a One-Time Pad (OTP) to be "perfectly secure"?\The key must be random, at least as long as the message, used only once, and kept secret.$
+Explain why OTP cannot guarantee integrity.\If an attacker modifies the ciphertext, the message receiver has no way to detect the change if the resulting decrypted text still makes sense.$
+Contrast Stream Ciphers and Block Ciphers.\Stream ciphers encrypt data continuously using a seed; Block ciphers (like AES) divide data into fixed blocks and are better when the data size is known in advance.$
+Explain why Electronic Code Book (ECB) mode is insecure.\ECB is insecure because identical plaintext blocks result in identical ciphertext blocks, revealing patterns in the encrypted data.$
+What is HMAC and what does it provide?\Hash-based Message Authentication Code uses a hash function and a shared secret key to provide both integrity and authenticity for a message.$
+Define the two keys used in Public Key Cryptography and their functions.\The Public Key is used by anyone to encrypt a message; the Private Key is kept secret by the owner to decrypt those messages.$
+How does a Certificate Authority (CA) establish trust?\A CA is a trusted third party that verifies and issues certificates confirming that a specific public key belongs to the person or entity claiming it.$
+Describe the basic steps of a SSL/TLS 1.2 Handshake.\1. Client sends "Hello"; 2. Server sends "Hello" and its Certificate; 3. Client generates a shared key K encrypted with the Server's public key; 4. Both use K for communication.$
+What is the core idea behind Quantum Key Distribution?\It uses photon polarization to establish keys; if an eavesdropper listens, they interfere with the polarization, alerting the legitimate parties.$

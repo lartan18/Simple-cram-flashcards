@@ -1,0 +1,9 @@
+What is "Garbage In, Garbage Out" in AI security?\This principle means that if an AI model is trained on insecure or poor-quality code, it will likely produce vulnerable code for the developer.$
+What is Secure Prompt Engineering?\It involves including **explicit security requirements** and secure patterns in LLM prompts to improve the safety of the AI's output.$
+What is the difference between Prescriptive and Descriptive SDLC models?\**Prescriptive models** tell an organization what they "should" do, while descriptive models (like BSIMM) observe and measure what organizations are actually doing.$
+What are the 7 Touchpoints for software security?\The 7 touchpoints are actionable activities integrated into the SDLC, including **code review**, **risk analysis**, and **penetration testing**.$
+What is a Bug Bounty program?\A bug bounty is a program that offers rewards to researchers for finding and responsibly reporting security vulnerabilities in a system.$
+What is Responsible Disclosure?\Responsible disclosure is the practice of **notifying the vendor** about a vulnerability before sharing the information with the public.$
+What is an AI Code Assistant?\An AI code assistant is a tool that **automates repetitive tasks** and reduces cognitive burden for developers, but may suggest insecure or vulnerable code patterns.$
+What is OWASP CLASP?\OWASP CLASP is a **role-based security framework** designed to integrate security activities and best practices into existing development lifecycles in a practical manner.$
+What is OpenSAMM?\OpenSAMM is an **open framework** for implementing a software security strategy with defined maturity levels, allowing organizations to measure and improve their security practices.$

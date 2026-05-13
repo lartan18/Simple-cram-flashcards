@@ -1,0 +1,10 @@
+Contrast "Monolithic" and "Microservice" architectures.\Monolithic is a single unit where one change requires a full rebuild; Microservices are independent, API-connected services that are easier to scale and test.$
+List the four main security challenges for microservices.\The challenges are Trust between services, a Large attack area, Low visibility, and Polyglot architecture.$
+Explain the security risk of a "Polyglot Architecture."\Using multiple programming languages means the team needs security expertise for every framework in the stack, increasing the risk of missing specific issues.$
+Describe the "Circuit Breaker" pattern.\It prevents a service failure from cascading by stopping requests to a failing service once a threshold is reached and using fallback methods instead.$
+What is a "Sidecar Proxy" and what tasks does it handle?\It is a process attached to an application that handles peripheral tasks like logging, security policies, and mTLS.$
+Define a "Software Supply Chain" (SSC).\An SSC is an organization’s use of external software (open-source or commercial) as ingredients in its own products.$
+List the four stages of a Software Supply Chain attack.\The stages are Compromise (finding a weak link), Alteration (inserting code), Propagation (spreading it), and Exploitation.$
+Explain the "Transparency" strategy in SSC security.\Transparency aims to identify link weaknesses before they are compromised; a key technology for this is the SBOM (Software Bill of Materials).$
+What is an SBOM and what are its "Minimum Elements"?\An SBOM is a list of ingredients for software; minimum elements include supplier, component name, version, and dependency relationships.$
+Explain how "Sigstore" provides "keyless" software signing.\It allows developers to sign code using their existing identity (GitHub/Google) via OpenID Connect, recording the event in a permanent transparency log.$

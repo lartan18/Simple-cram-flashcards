@@ -1,0 +1,10 @@
+List the five steps of the Risk Management Framework (RMF).\1. Understand business context; 2. Identify business risks; 3. Prioritize risks; 4. Define mitigation strategy; 5. Carry out fixes and validate.$
+Contrast "Likelihood" and "Impact" in risk assessment.\Likelihood is attacker-centric (frequency of an attack); Impact measures the severity of consequences (financial, reputation, CIA).$
+What is a "Business Risk" vs. a "Technical Risk"?\Business risks directly threaten goals (e.g., loss of money); Technical risks are threats against components (e.g., a SQL injection attack).$
+List the four dimensions of risk impact mentioned in the notes.\The dimensions are Confidentiality, Availability, Financial, and Reputation.$
+What are the criteria for a "good" security requirement?\It must describe what is needed (not how), be understandable, be cohesive (one thing per requirement), and be testable.$
+Explain the purpose of the Common Vulnerability Scoring System (CVSS).\CVSS is a standardized system for measuring the technical severity of a vulnerability on a scale of 0 to 10.$
+Identify the four metric groups in CVSS v4.0.\The groups are Base, Threat, Environmental, and Supplemental.$
+What is the "Base" metric in CVSS?\The Base metric represents the intrinsic qualities of a vulnerability that are constant over time and across different environments.$
+Explain "Risk-Based Testing" in the validation phase.\It involves prioritizing test cases based on the identified risks, ensuring that the most critical vulnerabilities are tested and fixed first.$
+How can a "Risk Matrix" be used to prioritize risks?\A matrix plots Likelihood against Impact; risks in the top-right (High/Extreme) are prioritized for immediate mitigation.$

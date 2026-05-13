@@ -1,0 +1,10 @@
+Define Threat Modeling according to the "Threat Modeling Manifesto."\It is the process of analyzing system representations to highlight concerns about security and privacy characteristics.$
+List the five steps of the software-centric threat modeling process.\1. Decompose the application; 2. Define/classify assets; 3. Explore vulnerabilities; 4. Explore threats; 5. Create mitigations.$
+Identify three types of "Threat Agents" and their primary motivations.\Crooks (profit/money), Spooks/Government (intelligence/warfare), and Insiders (revenge/malice).$
+Provide the full meaning of the STRIDE acronym.\S: Spoofing, T: Tampering, R: Repudiation, I: Information disclosure, D: Denial of service, E: Elevation of privilege.$
+Explain the threat of "Repudiation" and how to counter it.\Repudiation is when a user denies performing an action; it is countered by robust logging, audit trails, and digital signatures.$
+What is a "Misuse Case" in threat modeling?\It is an extension of a UML use case that describes a negative scenario (what an attacker wants to do) instead of a functional one.$
+Explain the structure of an "Attack Tree."\An attack tree uses AND/OR nodes to visualize the different paths an attacker can take to reach a specific root goal.$
+Describe the three parts of a "Bow-tie Diagram."\The left side lists threat causes, the center is the unwanted event, and the right side lists the consequences.$
+What does a "Trust Boundary" represent in a Data Flow Diagram (DFD)?\It is a line representing a change in the level of trust between two components, such as data moving from the public internet to an internal database.$
+List the four essential questions of threat modeling.\1. What are you building? 2. What can go wrong? 3. What are you going to do about it? 4. Did you do a good job?$

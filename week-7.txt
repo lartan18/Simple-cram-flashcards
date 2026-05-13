@@ -1,0 +1,11 @@
+What is the goal of the Risk Management Framework (RMF)?\The RMF is a process used to identify, rank, track, and understand software security risks as they change over time.$
+What are the two components used to prioritize risks?\Risks are prioritized based on **Likelihood** (how frequent/probable an attack is) and **Impact** (the severity of the consequences).$
+What is the difference between Business Risks and Technical Risks?\**Business risks** directly threaten organizational goals (like money or reputation), while technical risks are threats against software components (like SQLi or crashes).$
+What makes a "good" security requirement?\A good requirement describes **what** is needed (not how), is understandable, cohesive (one thing per requirement), and testable.$
+What is the CVSS?\The Common Vulnerability Scoring System (CVSS) is a standardized system that assigns a score from 0 to 10 to measure the technical severity of a vulnerability.$
+What is Risk Likelihood?\Risk Likelihood is an **attacker-centric measure** of how frequent or probable a specific security risk event is, based on threat agent capabilities and motivation.$
+What is Risk Impact?\Risk Impact is a measure of the consequences or damage caused by a security risk across dimensions like **financial loss, reputation damage, and data confidentiality breach**.$
+What is Risk Synthesis?\Risk Synthesis involves **combining Likelihood and Impact** to calculate the total risk value, which determines the priority for addressing the vulnerability.$
+What is a Security Requirement?\A security requirement is a specific statement of required security functionality or constraint that **must be satisfied** by the software system during development.$
+What is a Test Plan?\A Test Plan links **test cases to technical risks** and prioritizes them based on the cost of testing and the risk value, ensuring high-risk areas are tested thoroughly.$
+What is the CVSS Base Score?\The CVSS Base Score is a **metric representing the intrinsic qualities** of a vulnerability that do not change over time or depend on environmental factors.$

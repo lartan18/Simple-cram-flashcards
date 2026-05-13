@@ -1,0 +1,14 @@
+What is the CIA triad?\The CIA triad stands for Confidentiality, Integrity, and Availability, representing the three core pillars of information security.$
+What is Confidentiality?\Confidentiality involves keeping communication or data secret from unauthorized parties, often achieved through **cryptography**, authentication, and authorization.$
+What is the difference between Data Integrity and Control Integrity?\**Data integrity** ensures information is not corrupted or altered, while control integrity prevents "control hijacking" or unauthorized takeover of a system.$
+How does Privacy differ from Confidentiality?\**Privacy** is the right to be left alone and protects personal information, whereas **confidentiality** primarily focuses on protecting business secrets and sensitive communication.$
+What is Non-Repudiation?\Non-repudiation prevents parties from denying an interaction or communication, typically ensured via digital signatures or trusted third parties.$
+What is the "Secure the Weakest Link" principle?\This principle states that information security is only as strong as its easiest point of entry, such as **weak passwords**, human error, or poor software.$
+What is Defense in Depth?\Defense in Depth involves using multiple security layers (like firewalls, authentication, and encryption) so that there is no single point of failure.$
+How does the Swiss Cheese Model illustrate security?\The Swiss Cheese Model shows that while every security layer has "holes" (vulnerabilities), the solid parts of the next layer cover them to block an attack.$
+What does it mean to "Fail Securely"?\Failing securely means that if a security control fails, it should do so in a way that maintains protection, such as a firewall blocking all traffic if it goes down.$
+What is the Principle of Least Privilege?\The Principle of Least Privilege grants users only the **minimum access and time** necessary to perform their specific job functions.$
+What is Accountability?\Accountability is the ability to uniquely trace every action within a system back to a specific principal, relying on **logging** and **audit trails** to provide evidence.$
+What is Compartmentalization?\Compartmentalization is the practice of dividing a system into separate zones or parts so that a compromise in one area does not allow an attacker to reach the rest of the system.$
+What is Security by Obscurity?\Security by Obscurity is the discouraged practice of relying solely on the secrecy of implementation details (like a hidden URL) rather than strong security mechanisms as the primary defense.$
+What are Community Resources like the OWASP Top 10?\Community Resources like the OWASP Top 10 provide known vulnerability databases and best practices that organizations can use to prioritize security testing and improve their security posture.$

@@ -1,0 +1,10 @@
+What is the goal of the Norwegian "Personopplysningsloven"?\It incorporates GDPR into national law while adding specific Norwegian clarifications and requirements.$
+Define "Personal Data" according to GDPR.\It is any information relating to an identified or identifiable natural person.$
+List the four steps of a Data Protection Impact Assessment (DPIA).\1. Describe processing; 2. Assess compliance with principles; 3. Assess risks to subjects; 4. Summarize measures and validation.$
+Identify three criteria that make data processing "High Risk," requiring a full DPIA.\Examples include systematic monitoring, processing data on a large scale, and using sensitive personal data.$
+Explain the principle of "Purpose Limitation."\Personal data must be collected for a specific, lawful purpose and not used for any unrelated future goals.$
+Explain the principle of "Data Minimization."\Organizations should only collect and process the minimum amount of data strictly necessary for the defined purpose.$
+Explain the principle of "Accuracy" in GDPR.\Personal data must be correct and kept up to date; inaccurate data must be erased or rectified immediately.$
+Explain the "Storage Limitation" principle.\Personal data must be deleted or anonymized as soon as the purpose for which it was collected is fulfilled.$
+What is the "Anonymization Trap"?\It is the false belief that data is anonymous when it can actually still be linked back to an individual through re-identification techniques.$
+How should "Privacy-by-Design" be implemented in an agile team?\The product team should identify purposes early and gradually elaborate on privacy measures as part of user stories and epics.$

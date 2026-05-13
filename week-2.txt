@@ -1,0 +1,13 @@
+What is the goal of Information Gathering?\Attackers use it to map attack points and find vulnerabilities, while developers use it to prioritize security testing and improve efficiency.$
+What is Google Dorking?\Google Dorking involves using **advanced search operators** to find sensitive information that was unintentionally exposed on the internet.$
+What is a Debugging Proxy?\A debugging proxy is a tool used to capture, examine, and manipulate the requests and responses between a browser and a server.$
+What is SQL Injection (SQLi)?\SQLi occurs when an attacker injects malicious SQL code into input fields to bypass authentication, steal data, or corrupt the database.$
+How does a Blind SQL Injection attack work?\In a blind SQLi attack, the attacker extracts data by asking the database logical yes/no questions or using binary search methods to guess table names and schemas.$
+What is the most effective countermeasure against SQL Injection?\**Prepared statements** and bind variables are considered the best defense because they separate the SQL query structure from the user-provided data.$
+Why is Session Management necessary?\Session management is required because HTTP is stateless, meaning servers do not naturally remember previous requests from the same user.$
+What is Session Fixation?\Session fixation is an attack where an attacker overwrites a user's session token with their own so they are logged in once the user authenticates.$
+What is the difference between Session Cookies and Persistent Cookies?\**Session cookies** are temporary and deleted when the browser closes, while persistent cookies have an expiration date and remain on the device for long-term use.$
+What are Trust Zones?\Trust zones are the specific pages or areas of an application that require authentication to access, as opposed to public pages accessible to all.$
+What is Blacklisting?\Blacklisting is a countermeasure that filters out specific "bad" input characters or patterns (like quotes or semicolons) to prevent injection attacks, though it is often easy to bypass.$
+What is Whitelisting?\Whitelisting is a more secure countermeasure that defines a set of allowed safe inputs using **Regular Expressions**, ensuring only known-good data is accepted.$
+What is Mitigating Impact?\Mitigating Impact involves reducing damage after an attack by using strategies like **hashing passwords** or **limiting error messages** that reveal system details.$
