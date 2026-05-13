@@ -3,6 +3,8 @@ const FILE_OPTIONS = {
   'Week 3': './week-3.txt',
   'Week 4': './week-4.txt',
   'Week 5': './week-5.txt',
+  'Week 6': './week-6.txt',
+  'Week 7': './week-7.txt',
 };
 const DEFAULT_FILE_KEY = 'Week 3';
 const TERM_SEPARATOR = '\\';
